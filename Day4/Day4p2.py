@@ -1,3 +1,4 @@
+
 import re
 def run():
 
@@ -18,7 +19,10 @@ def run():
                 val += 1
 
         i += 1
-        s = input()
+        try:
+            s = input()
+        except EOFError:
+            break
     return sum(points[:203]) 
 
 print(run())

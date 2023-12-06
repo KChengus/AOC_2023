@@ -1,8 +1,4 @@
-
-
-
 def run():
-
     s = input()
     # [blue, red, green]
     mp = {'red':0, 'green':1, 'blue':2}
@@ -26,6 +22,10 @@ def run():
             val *= elem 
         ret += val
         print(ret)
-        s = input()
+
+        try:
+            s = input()
+        except EOFError:
+            break
 
 run()
