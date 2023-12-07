@@ -17,6 +17,31 @@ conv = {
     'A':14,
 }
 
+def compare(s1, s2):
+    for i in range(len(s1)):
+        c1, c2 = conv[s1[i]], conv[s2[i]]
+        if (c1 > c2):
+            return True
+        elif (c1 < c2):
+            return False
+    return False
+
+
+def insertion_sort(arr):
+    n = len(arr)
+
+    for i in range(1, n):
+        key = arr[i]
+        j = i - 1
+
+        # Move elements of arr[0..i-1] that are greater than key to one position ahead of their current position
+        while j >= 0 and compare(arr[j][0], key[0]):
+            arr[j + 1] = arr[j]
+            j -= 1
+
+        arr[j + 1] = key
+
+
 def handle_card_event(track, cards, bid):
 
     unique = set(cards)
@@ -62,8 +87,11 @@ def handle_card_event(track, cards, bid):
 
 
 def func(x):
-    print(x)
-    return x[0]
+    ret = "" 
+    for i in range(len(x[0])):
+        ret += str(conv[x[0][i]])
+    print(x[0], ret)
+    return int(ret) 
 
 def main():
     ret = 0
@@ -73,19 +101,20 @@ def main():
         cards, bid = s.split(' ')
         bid = int(bid)
         handle_card_event(track, cards, bid)
-        i = 1
         
         try:
             s = input()
-        except:
+        except EOFError:
             break
     print(m)
+    i = 1
     for j in range(6, -1, -1):
-        l = sorted(m[j], key=func)
-        # print(l)
+        l = m[j]
+        insertion_sort(l)
+        print(l)
         for k in range(len(l)):
             val = (i+k) * l[k][1] 
-            print(l[k][0])
+            # print(val)
             ret += val
         i += len(l)
     
